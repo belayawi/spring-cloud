@@ -1,1 +1,34 @@
 
+server:
+  port: 8080
+  
+spring:
+  application:
+    name: ApiGateway
+  cloud:
+    gateway:
+      routes:
+        - id: BookCommand
+          uri: lb://BookCommand
+          predicates:
+            - Path=/command/**
+        - id: BookQuery
+          uri: lb://BookQuery
+          predicates:
+            - Path=/query/**
+
+        - id: ReviewService
+          uri: lb://ReviewService
+          predicates:
+            - Path=/reviews/**
+
+        - id: BookBorrowing
+          uri: lb://BorrowingService
+          predicates:
+            - Path=/borrowings/**
+
+        - id: CustomerService
+          uri: lb://CustomerService
+          predicates:
+            - Path=/customers/**
+
